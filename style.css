@@ -1,0 +1,27 @@
+div {
+    border: 1px solid black;
+}
+
+body {
+    display: flex;
+    justify-content: space-around;
+}
+
+#display {
+    align-self: flex-start;
+}
+
+#output {
+    height: 64px;
+}
+
+#input {
+    display: grid;
+    grid-template-columns: repeat(4, 64px);
+    grid-template-rows: repeat(5, 64px);
+    gap: 2px;
+}
+
+#CE {
+    grid-column: 2;
+}
