@@ -1,10 +1,15 @@
 let first_operand = null;
 let second_operand = null;
 let operator = null;
-let result = null;
 
 let output = document.getElementById('output');
 output.textContent = null;
+
+function addDecimal(element) {
+    if (!output.innerText.includes('.')) {
+        setDisplay(element);
+    }
+}
 
 function setDisplay(element) {
     output.innerText = output.innerText + element.textContent;
@@ -23,8 +28,20 @@ function setOperator(element) {
     }
 }
 
+function clearEntry() {
+    output.textContent = null;
+}
+
+function clear() {
+    first_operand = null;
+    second_operand = null;
+    operator = null;
+    clearEntry();
+}
+
 function calculate() {
     if (operator && first_operand) {
+        let result = null;
         second_operand = parseFloat(output.textContent);
         switch (operator) {
             case 'divide':
@@ -51,8 +68,10 @@ function calculate() {
 function onClick () {
     switch (this.id) {
         case 'CE':
+            clearEntry();
             break;
         case 'C':
+            clear();
             break;
         case 'delete':
             deleteLastInput();
@@ -65,6 +84,9 @@ function onClick () {
             break;
         case 'equals':
             calculate();
+            break;
+        case 'dot':
+            addDecimal(this);
             break;
         default:
             setDisplay(this);
