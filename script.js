@@ -1,13 +1,19 @@
 let first_operand = null;
 let second_operand = null;
 let operator = null;
+let result = null;
 
 let output = document.getElementById('output');
 output.textContent = null;
 
 function setDisplay(element) {
-    console.log(element.textContent);
-    output.innerText = output.textContent + element.textContent;
+    if (result !== null && parseFloat(output.innerText) === result) {
+        result = null;
+        output.innerText = null;
+        output.innerText = element.textContent;
+    } else {
+        output.innerText = output.textContent + element.textContent;
+    }
 }
 
 function deleteLastInput() {
@@ -15,18 +21,14 @@ function deleteLastInput() {
 }
 
 function setOperator(element) {
-    let display = output.innerText;
-    if (output.textContent.slice(output.textContent.length - 1) === ".")
-        deleteLastInput();
     if (first_operand === null && element.id !== 'equals') {
         first_operand = output.textContent;
-        operand = element.id;
+        operator = element.id;
         output.innerText = null;
-    } else {
+    } else if (element.id === 'equals') {
         first_operand = parseFloat(first_operand);
         second_operand = parseFloat(output.textContent);
-        let result = 0;
-        switch (operand) {
+        switch (operator) {
             case 'divide':
                 result = first_operand / second_operand;
                 break;
@@ -45,6 +47,9 @@ function setOperator(element) {
         first_operand = result;
         second_operand = null;
         output.innerText = result;
+        operator = element.id === 'equals' ? null : element.id;
+    } else {
+        operator = element.id;
     }
     console.log(element);
 }
