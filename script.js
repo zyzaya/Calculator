@@ -7,26 +7,24 @@ let output = document.getElementById('output');
 output.textContent = null;
 
 function setDisplay(element) {
-    if (result !== null && parseFloat(output.innerText) === result) {
-        result = null;
-        output.innerText = null;
-        output.innerText = element.textContent;
-    } else {
-        output.innerText = output.textContent + element.textContent;
-    }
+    output.innerText = output.innerText + element.textContent;
 }
 
 function deleteLastInput() {
-    output.innerText = output.textContent.slice(0, -1);
+    output.innerText = output.innerText.slice(0, -1)
+    current_display = output.innerText;
 }
 
 function setOperator(element) {
-    if (first_operand === null && element.id !== 'equals') {
-        first_operand = output.textContent;
-        operator = element.id;
-        output.innerText = null;
-    } else if (element.id === 'equals') {
-        first_operand = parseFloat(first_operand);
+    operator = element.id;
+    if (first_operand === null) {
+        first_operand = parseFloat(output.textContent);
+        output.textContent = null;
+    }
+}
+
+function calculate() {
+    if (operator && first_operand) {
         second_operand = parseFloat(output.textContent);
         switch (operator) {
             case 'divide':
@@ -44,14 +42,10 @@ function setOperator(element) {
             default:
                 break;
         }
-        first_operand = result;
+        first_operand = null;
         second_operand = null;
         output.innerText = result;
-        operator = element.id === 'equals' ? null : element.id;
-    } else {
-        operator = element.id;
     }
-    console.log(element);
 }
 
 function onClick () {
@@ -66,9 +60,11 @@ function onClick () {
         case 'divide':
         case 'multiply':
         case 'minus':
-        case 'equals':
         case 'plus':
             setOperator(this);
+            break;
+        case 'equals':
+            calculate();
             break;
         default:
             setDisplay(this);
