@@ -30,7 +30,7 @@ function setOperator(id) {
     operator = id;
     if (first_operand === null) { 
         first_operand = parseFloat(output.textContent);
-        setDisplay(operator)
+        output.innerText = first_operand + operator
     }
 }
 
