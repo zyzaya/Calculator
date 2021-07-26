@@ -1,18 +1,21 @@
+// keyboard, visuals, history display, 
+// display defaults to zero instead of nothing
+
 let first_operand = null;
 let second_operand = null;
 let operator = null;
 
 let output = document.getElementById('output');
-output.textContent = null;
+output.textContent = "";
 
-function addDecimal(element) {
+function addDecimal(id) {
     if (!output.innerText.includes('.')) {
-        setDisplay(element);
+        setDisplay(id);
     }
 }
 
-function setDisplay(element) {
-    output.innerText = output.innerText + element.textContent;
+function setDisplay(id) {
+    output.innerText = output.innerText + id;
 }
 
 function deleteLastInput() {
@@ -20,8 +23,8 @@ function deleteLastInput() {
     current_display = output.innerText;
 }
 
-function setOperator(element) {
-    operator = element.id;
+function setOperator(id) {
+    operator = id;
     if (first_operand === null) {
         first_operand = parseFloat(output.textContent);
         output.textContent = null;
@@ -44,16 +47,16 @@ function calculate() {
         let result = null;
         second_operand = parseFloat(output.textContent);
         switch (operator) {
-            case 'divide':
+            case '/':
                 result = first_operand / second_operand;
                 break;
-            case 'multiply':
+            case '*':
                 result = first_operand * second_operand;
                 break;
-            case 'minus':
+            case '-':
                 result = first_operand - second_operand;
                 break;
-            case 'plus':
+            case '+':
                 result = first_operand + second_operand;    
                 break;
             default:
@@ -65,31 +68,32 @@ function calculate() {
     }
 }
 
-function onClick () {
-    switch (this.id) {
+function onClick (id) {
+    switch (id) {
         case 'CE':
             clearEntry();
             break;
         case 'C':
             clear();
             break;
-        case 'delete':
+        case 'Backspace':
             deleteLastInput();
             break;
-        case 'divide':
-        case 'multiply':
-        case 'minus':
-        case 'plus':
-            setOperator(this);
+        case '/':
+        case '*':
+        case '-':
+        case '+':
+            setOperator(id);
             break;
-        case 'equals':
+        case 'Enter':
+        case '=':
             calculate();
             break;
-        case 'dot':
-            addDecimal(this);
+        case '.':
+            addDecimal(id);
             break;
         default:
-            setDisplay(this);
+            setDisplay(id);
             break;
     }
 }
@@ -97,7 +101,11 @@ function onClick () {
 let input = document.getElementById('input')
 let buttons = input.querySelectorAll('button');
 buttons.forEach((button) => {
-    button.addEventListener('click', onClick)
+    button.addEventListener('click', () => {
+        onClick(button.id)
+    });
 });
 
-
+document.addEventListener('keydown', (event) => {
+    onClick(event.key);
+})
