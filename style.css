@@ -1,5 +1,22 @@
-div {
-    border: 1px solid black;
+* {
+    background-color: rgb(18 18 66);
+}
+
+#input button {
+    background-color: rgb(44 44 76);
+    font-size: large;
+    color: white;
+    border: 1px solid rgb(44 44 76);
+    border-radius: 12px;;
+    border-style: none;
+    /* border-style: 1px solid rgb(44 44 76); */
+    transition-duration: 0.2s;
+}
+
+#input button:hover {
+    border: 1px solid rgb(44 44 76);
+    border-radius: 12px;
+    background-color: rgb(58 58 101);
 }
 
 body {
@@ -9,17 +26,29 @@ body {
 
 #display {
     align-self: flex-start;
+    border: 3px solid grey;
+    border-radius: 12px;
 }
 
 #output {
     height: 64px;
+    color: white;
+    font-size: 48;
+    text-align: end;
+    background-color: rgb(74 74 119 / 79%);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 5px;
 }
 
 #input {
     display: grid;
+    justify-content: center;
     grid-template-columns: repeat(4, 64px);
     grid-template-rows: repeat(5, 64px);
-    gap: 2px;
+    background-color: rgb(44 44 76);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 #CE {
