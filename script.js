@@ -15,7 +15,7 @@ function addDecimal(id) {
 }
 
 function setDisplay(id) {
-    if (output.innerText === '0' && id !== '.')
+    if ((output.innerText === '0' && id !== '.') || (output.innerText === 'NaN'))
         output.innerText = "";
     output.innerText = output.innerText + id;
 }
@@ -46,14 +46,17 @@ function clear() {
 }
 
 function calculate() {
-    if (operator && first_operand) {
+    if (operator && first_operand !== null) {
         let result = null;
-        console.log(output.textContent.split(operator)[1])
         second_operand = parseFloat(output.textContent.split(operator)[1]);
-        console.log(second_operand)
         switch (operator) {
             case '/':
-                result = first_operand / second_operand;
+                if (second_operand == 0) {
+                    result = 'NaN'
+                } else {
+                    result = first_operand / second_operand;
+                }
+            
                 break;
             case '*':
                 result = first_operand * second_operand;
@@ -116,14 +119,17 @@ function onClick (id) {
     }
 }
 
-let input = document.getElementById('input')
+let input = document.getElementById('input');
 let buttons = input.querySelectorAll('button');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-        onClick(button.id)
+        onClick(button.id);
     });
 });
 
 document.addEventListener('keydown', (event) => {
+    let input = document.getElementById(event.key)
+    if (input) input.focus()
+
     onClick(event.key);
 })
