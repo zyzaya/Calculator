@@ -9,7 +9,6 @@
     border: 1px solid rgb(44 44 76);
     border-radius: 12px;;
     border-style: none;
-    /* border-style: 1px solid rgb(44 44 76); */
     transition-duration: 0.2s;
 }
 
@@ -17,6 +16,10 @@
     border: 1px solid rgb(44 44 76);
     border-radius: 12px;
     background-color: rgb(58 58 101);
+}
+
+#input button:focus-visible {
+    outline: none;
 }
 
 body {
@@ -33,7 +36,7 @@ body {
 #output {
     height: 64px;
     color: white;
-    font-size: 48;
+    font-size: 36;
     text-align: end;
     background-color: rgb(74 74 119 / 79%);
     border-top-left-radius: 8px;
